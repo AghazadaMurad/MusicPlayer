@@ -152,32 +152,12 @@ songEl.addEventListener("timeupdate", (e) => {
   progressEl.style.width = `${(current / duration) * 100}%`;
 });
 
-// progressContainerEl.addEventListener("click", (event) => {
-//   const {
-//     target: { clientWidth },
-//     offsetX: clicked,
-//   } = event;
-//   const songDuration = songEl.duration;
+progressContainerEl.addEventListener("click", function (event) {
+  const width = this.clientWidth;
+  const clicked = event.offsetX;
+  const { duration } = songEl;
 
-//   const songCurrentTime = `${Math.floor((clicked / clientWidth) * 100)}%`;
-//   const clickedDuration = Math.floor((clicked / clientWidth) * songDuration);
-
-//   songEl.currentTime = clickedDuration;
-//   progressEl.style.width = songCurrentTime;
-// });
-
-progressContainerEl.addEventListener("click", (event) => {
-  const {
-    target: { clientWidth },
-    offsetX: clicked,
-  } = event;
-  const songDuration = songEl.duration;
-
-  // const songCurrentTime = `${Math.floor((clicked / clientWidth) * 100)}%`;
-  const clickedDuration = Math.floor((clicked / clientWidth) * songDuration);
-
-  songEl.currentTime = clickedDuration;
-  // progressEl.style.width = songCurrentTime;
+  songEl.currentTime = (clicked / width) * duration;
 });
 
 prev10Btn.addEventListener("click", () => {
