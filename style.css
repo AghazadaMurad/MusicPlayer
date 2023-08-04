@@ -3,3 +3,12 @@
 body {
   font-family: "Poppins", sans-serif;
 }
+
+#progress-bar-audio {
+  width: 0px;
+  transition: all 200ms linear;
+}
+
+.voulume:hover #progress-bar-audio {
+  width: 80px;
+}

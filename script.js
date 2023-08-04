@@ -5,6 +5,7 @@ const prevBtn = document.getElementById("prev__btn");
 const playBtn = document.getElementById("play__btn");
 const nextBtn = document.getElementById("next__btn");
 const forward10Btn = document.getElementById("forward10Sec");
+const volumeBtn = document.querySelector(".voulume i");
 
 const songEl = document.getElementById("song");
 
@@ -14,6 +15,9 @@ const artistEl = document.getElementById("artist");
 
 const progressContainerEl = document.getElementById("progress-container");
 const progressEl = document.getElementById("progress");
+
+const progressAudioBarEl = document.getElementById("progress-bar-audio");
+const progressAudioEl = document.getElementById("progress-audio");
 
 const currentTimeEl = document.getElementById("current__time");
 const durationEl = document.getElementById("duration");
@@ -152,6 +156,13 @@ songEl.addEventListener("timeupdate", (e) => {
   progressEl.style.width = `${(current / duration) * 100}%`;
 });
 
+songEl.addEventListener("ended", () => {
+  songIndex = songIndex == songs.length - 1 ? 0 : songIndex + 1;
+  displaySong(songs[songIndex]);
+  playSong();
+  displaySongList();
+});
+
 progressContainerEl.addEventListener("click", function (event) {
   const width = this.clientWidth;
   const clicked = event.offsetX;
@@ -166,4 +177,23 @@ prev10Btn.addEventListener("click", () => {
 
 forward10Btn.addEventListener("click", () => {
   songEl.currentTime += 10;
+});
+
+volumeBtn.addEventListener("click", () => {
+  volumeBtn.classList.toggle("fa-volume-high");
+  volumeBtn.classList.toggle("fa-volume-xmark");
+
+  if (volumeBtn.classList.contains("fa-volume-high")) {
+    songEl.muted = false;
+  } else {
+    songEl.muted = true;
+  }
+});
+
+progressAudioBarEl.addEventListener("click", (e) => {
+  const width = progressAudioBarEl.clientWidth;
+  const clicked = e.offsetX;
+  progressAudioEl.style.width = `${(clicked / width) * 100}%`;
+  songEl.volume = clicked / width;
+  console.log(clicked / width);
 });
